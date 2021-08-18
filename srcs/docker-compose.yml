@@ -1,8 +1,7 @@
 version: "3"
 
 networks:
-    frontend:
-    backend:
+    inception:
 
 services:
     nginx:
@@ -12,11 +11,9 @@ services:
         volumes:
             - wp:/var/www/wordpress
         ports:
-            - 80:80
             - 443:443
         networks:
-            - frontend
-            - backend
+            - inception
         restart: always
         env_file: .env
         depends_on:
@@ -31,7 +28,22 @@ services:
         ports:
             - 9000:9000
         networks:
-            - backend
+            - inception
+        restart: always
+        env_file: .env
+        depends_on:
+            - mariadb
+    
+    mariadb:
+        build: ./requirements/mariadb
+        image: mariadb:v1.0.0
+        container_name: mariadb
+        volumes:
+            - db:/var/lib/mysql
+        ports:
+            - 3306:3306
+        networks:
+            - inception
         restart: always
         env_file: .env
 
@@ -42,3 +54,9 @@ volumes:
             type: volume
             o: bind
             device: /home/mbeaujar/data/wp
+    db:
+        driver: local
+        driver_opts:
+            type: volume
+            o: bind
+            device: /home/mbeaujar/data/db
