@@ -1,0 +1,44 @@
+version: "3"
+
+networks:
+    frontend:
+    backend:
+
+services:
+    nginx:
+        build: ./requirements/nginx
+        image: nginx:v1.0.0
+        container_name: nginx
+        volumes:
+            - wp:/var/www/wordpress
+        ports:
+            - 80:80
+            - 443:443
+        networks:
+            - frontend
+            - backend
+        restart: always
+        env_file: .env
+        depends_on:
+            - wordpress
+
+    wordpress:
+        build: ./requirements/wordpress
+        image: wordpress/v1.0.0
+        container_name: wordpress
+        volumes:
+            - wp:/var/www/wordpress
+        ports:
+            - 9000:9000
+        networks:
+            - backend
+        restart: always
+        env_file: .env
+
+volumes:
+    wp:
+        driver: local
+        driver_opts:
+            type: volume
+            o: bind
+            device: /home/mbeaujar/data/wp
