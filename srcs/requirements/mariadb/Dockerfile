@@ -8,5 +8,8 @@ COPY my.cnf /etc/mysql/my.cnf
 COPY start.sh /
 RUN chmod +x start.sh
 
+#ENTRYPOINT bash 
 ENTRYPOINT exec ./start.sh
+
+EXPOSE 3306
 
