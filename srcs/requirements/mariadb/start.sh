@@ -21,6 +21,8 @@ echo "SET password FOR '$DB_USER'@'%' = password('$DB_PASSWORD');" | mysql -u ro
 echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;" | mysql -u root --skip-password
 echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password
 
+mysql $DB_NAME -u root < /tmp/wordpress.sql
+
 # close db
 mysqladmin shutdown
 
