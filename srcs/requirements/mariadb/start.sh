@@ -12,9 +12,6 @@ done
 if [ -d "/var/lib/mysql/$DB_NAME" ]; then
     echo "database $DB_NAME already exist"
 else
-#DB_NAME=wordpress
-#DB_USER=mbeaujar
-#DB_PASSWORD=password
 
 echo -e "\ny\n$DB_PASSWORD\n$DB_PASSWORD\ny\nn\ny\ny\n" | mysql_secure_installation 2> /dev/null
 echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;" | mysql -uroot

@@ -1,11 +1,17 @@
 
 CMD=docker-compose
+YAML= srcs/docker-compose.yml
 
-all:
-	$(CMD) -f srcs/docker-compose.yml up
+up:
+	@$(CMD) -f $(YAML) up -d --build
 
-force-build:
-	$(CMD) -f srcs/docker-compose.yml up --build
+stop:
+	@$(CMD) -f $(YAML) stop
+
+down:
+	@$(CMD) -f $(YAML) down
 
 clear:
-	$(CMD) -f srcs/docker-compose.yml down --rmi all
+	$(CMD) -f $(YAML) down --rmi all
+
+re : stop up
