@@ -4,27 +4,30 @@ mysql_install_db
 
 /usr/bin/mysqld_safe --datadir="/var/lib/mysql" &
 
-until echo "show databases;" | mysql -u root --skip-password
+until echo "show databases;" 2> /dev/null | mysql -uroot
 do
-    clear
     echo "mysql is not up"
 done
 
-
-#DB_NAME=site
+if [ -d "/var/lib/mysql/$DB_NAME" ]; then
+    echo "database $DB_NAME already exist"
+else
+#DB_NAME=wordpress
 #DB_USER=mbeaujar
-#DB_PASSWORD=inception
+#DB_PASSWORD=password
 
-echo "CREATE DATABASE $DB_NAME;" | mysql -u root --skip-password
-echo "CREATE USER '$DB_USER'@'%';" | mysql -u root --skip-password
-echo "SET password FOR '$DB_USER'@'%' = password('$DB_PASSWORD');" | mysql -u root --skip-password
-echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;" | mysql -u root --skip-password
-echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password
+echo -e "\ny\n$DB_PASSWORD\n$DB_PASSWORD\ny\nn\ny\ny\n" | mysql_secure_installation 2> /dev/null
+echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;" | mysql -uroot
+echo "CREATE USER IF NOT EXISTS $DB_USER IDENTIFIED BY '$DB_PASSWORD'" | mysql -uroot
+echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;" | mysql -uroot 
+echo "FLUSH PRIVILEGES;" | mysql -uroot
+mysql $DB_NAME -uroot -p$DB_PASSWORD < /tmp/wordpress.sql
 
-mysql $DB_NAME -u root < /tmp/wordpress.sql
-
+fi
 # close db
 mysqladmin shutdown
 
+#bash
+
 # start mariadb with pid 1
-exec mysqld -u root --datadir="/var/lib/mysql"
+exec mysqld -uroot --datadir="/var/lib/mysql"
