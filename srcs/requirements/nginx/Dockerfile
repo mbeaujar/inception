@@ -15,7 +15,6 @@ COPY default.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf  /etc/nginx/sites-enabled/default.conf 
 
 EXPOSE 443
-# nginx -g 'daemon off;'
-# exec for pid 1
+
 ENTRYPOINT exec nginx -g 'daemon off;'
-#exec nginx -g 'daemon off;'
+
