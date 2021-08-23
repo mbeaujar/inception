@@ -41,3 +41,7 @@
   - https://onexlab-io.medium.com/docker-compose-redis-16a8ff3682b1
   - https://medium.com/gretathemes/how-to-speed-up-your-wordpress-website-with-redis-cache-d0259551150a
   - https://support.pagely.com/hc/en-us/articles/360015193272-Manually-Configuring-the-Redis-Object-Cache-Plugin-for-WordPress
+
+
+#### ftp:
+  - https://all-it-network.com/serveur-ftp-debian-10-proftpd/

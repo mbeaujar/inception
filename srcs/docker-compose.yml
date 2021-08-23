@@ -17,6 +17,24 @@ services:
         restart: always
         depends_on:
             - wordpress
+
+    ftp:
+        build: ./requirements/ftp
+        image: ftp:v1.0.0
+        container_name: ftp
+        ports:
+            - "21:21"
+            - "20:20"
+            - "30020-30030:30020-30030"
+        volumes:
+            - wp:/home/mbeaujar
+        networks:
+            - inception
+        restart: always
+        env_file: .env
+        depends_on:
+            - nginx
+        
     
     redis:
         build: ./requirements/redis
