@@ -15,6 +15,8 @@ services:
         networks:
             - inception
         restart: always
+        extra_hosts:
+            - "mbeaujar.42.fr:127.0.0.1"
         depends_on:
             - wordpress
 
@@ -34,7 +36,17 @@ services:
         env_file: .env
         depends_on:
             - nginx
-        
+    
+    prometheus:
+        build: ./requirements/bonus/prometheus
+        image: prometheus:v1.0.0
+        container_name: prometheus
+        ports:
+            - 9090:9090
+            - 9323:9323
+        networks:
+            - inception
+        restart: always
     
     redis:
         build: ./requirements/bonus/redis

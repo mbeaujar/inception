@@ -1,7 +1,7 @@
 FROM debian:buster
 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install nginx openssl
+RUN apt-get -y install nginx openssl procps
 
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 \
     -nodes -out /etc/ssl/certs/localhost.pem \

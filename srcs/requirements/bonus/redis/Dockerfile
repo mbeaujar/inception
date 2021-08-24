@@ -1,7 +1,7 @@
 FROM debian:buster
 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install redis-server vim
+RUN apt-get -y install redis-server procps
 
 COPY conf/redis.conf /etc/redis/redis.conf
 
