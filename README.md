@@ -1,5 +1,13 @@
 # inception
 
+#### commands utils : 
+  - enter inside a container            : docker exec -it container_name sh
+  - start docker-compose                : docker-compose up
+  - start docker-compose in background  : docker-compose up -d 
+  - build image before start            : docker-compose up --build
+  - add path to cmd docker-compose      : docker-compose -f srcs/docker-compose.yml up
+  - stop docker-compose                 : docker-compose stop
+  - delete docker-compose               : docker-compose down --rmi all
 
 #### tuto :
   - https://cloud.google.com/architecture/best-practices-for-building-containers
